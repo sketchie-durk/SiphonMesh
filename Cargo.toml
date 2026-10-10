@@ -1,0 +1,16 @@
+[package]
+name = "siphonmesh"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libp2p = { version = "0.53", features = ["tcp", "noise", "yamux", "kad", "mdns", "macros"] }
+tokio = { version = "1.36", features = ["full"] }
+futures = "0.3"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+async-trait = "0.1"
+
