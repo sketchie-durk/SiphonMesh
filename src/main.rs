@@ -13,6 +13,7 @@ use anyhow::Result;
 #[derive(NetworkBehaviour)]
 pub struct SiphonBehaviour {
     pub mdns: mdns::async_mdns::Behaviour,
+    pub kademlia: libp2p::kad::Behaviour<libp2p::kad::store::MemoryStore>,
 }
 
 #[tokio::main]
@@ -29,6 +30,7 @@ async fn main() -> Result<()> {
         .with_behaviour(|key| {
             SiphonBehaviour {
                 mdns: mdns::async_mdns::Behaviour::new(libp2p::mdns::Config::default(), key.public().to_peer_id()),
+                kademlia: libp2p::kad::Behaviour::new(libp2p::kad::KademliaConfig::default(), libp2p::kad::store::MemoryStore::new(key.public().to_peer_id())),
             }
         })?
         .build();
